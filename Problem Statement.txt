@@ -1,0 +1,31 @@
+You are given a list of file names and their lengths in bytes.. Example:
+
+File1: 200 File2: 500 File3 800
+You are given a number N. We want to launch N threads to read all the files paralelly such that each thread approximately reads an equal amount of bytes
+
+You should return N lists. Each list describes the work of one thread:
+Example, when N=2, there are two threads. In the above example, there is a total of 1500 bytes (200 + 500 + 800). A fair way to divide is for each thread to read 750 bytes. So you will return:
+
+Two lists
+
+List 1:
+File1: 0 - 199 File2: 0 - 499 File3: 0-49 
+---------------- Total 750 bytes
+
+List 2:
+File3: 50-799 -------------------- Total 750 bytes
+
+Notes:
+
+1. Split the work such that total bytes read by any two threads differ by at most 1
+byte. Be careful about corner cases. For example, suppose there are 999 bytes and 100 threads.. you might choose the bytes_per_thread as 999/100 = 9 bytes.. in this case, all except the last thread will get 9 bytes.. but the last thread will get 99 bytes. This is unbalanced. Any two threads should differ by at most 1 byte
+2. You don't have to actually create any threads. Just output the split description as specified in the question is enough.
+
+Implement the following method List<List<FileRange>> getSplits(List<File> files, int N)
+Class File {
+String filename;
+long length }
+
+ Class FileRange { String filename
+Long startOffset
+Long endOffset }
